@@ -20,12 +20,6 @@ class ItemCompleted extends StatelessWidget {
               color: Colors.grey,
             ),
       ),
-      secondary: IconButton(
-        onPressed: () {
-          // todo_bloc remove forever
-        },
-        icon: Icon(Icons.delete_forever),
-      ),
       value: isChecked,
       onChanged: (newValue) {
         //todo_bloc add as todo

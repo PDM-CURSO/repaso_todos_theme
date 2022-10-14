@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repaso_todos_theme/home/bloc/todos_bloc.dart';
 import 'package:repaso_todos_theme/home/completed/completed_list.dart';
 import 'package:repaso_todos_theme/home/todo/todo_list.dart';
 
@@ -25,19 +27,42 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 48),
-            child: Text(
-              "Ingrese el To-Do para agregar",
-              style: Theme.of(context).textTheme.headline6,
+      body: BlocConsumer<TodosBloc, TodosState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 48),
+                  child: Text(
+                    "Ingrese el To-Do para agregar",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                Container(child: CreateTodoForm()),
+                Divider(thickness: 4),
+                Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: TodoList(
+                    listContent:
+                        BlocProvider.of<TodosBloc>(context).getTodosList,
+                  ),
+                ),
+                Divider(thickness: 4),
+                Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: CompletedList(
+                    listContent: BlocProvider.of<TodosBloc>(context)
+                        .getCompletedTodosList,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Expanded(child: CreateTodoForm()),
-          Expanded(child: TodoList(listContent: ["Ir a comer", "Viajar"])),
-          Expanded(child: CompletedList(listContent: ["Desayuno", "Alarma"])),
-        ],
+          );
+        },
       ),
     );
   }

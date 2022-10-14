@@ -16,7 +16,10 @@ class TodoList extends StatelessWidget {
         return Divider();
       },
       itemBuilder: (BuildContext context, int index) {
-        return ItemTodo(todoDescription: listContent[index]);
+        return ItemTodo(
+          todoDescription: listContent[index],
+          itemAt: index,
+        );
       },
     );
   }

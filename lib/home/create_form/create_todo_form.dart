@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:repaso_todos_theme/home/bloc/todos_bloc.dart';
 
 class CreateTodoForm extends StatelessWidget {
   var _textCtrll = TextEditingController();
@@ -29,6 +31,12 @@ class CreateTodoForm extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               // todo_bloc guardar
+              if (_textCtrll.text.isNotEmpty) {
+                BlocProvider.of<TodosBloc>(context).add(
+                  AddTodoEvent(todoDescription: _textCtrll.text),
+                );
+                _textCtrll.clear();
+              }
             },
             child: Text("Guardar"),
           ),
